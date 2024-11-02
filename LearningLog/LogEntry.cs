@@ -1,14 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
+﻿/* FileName:        LogEntry.
+   Author:          Ritik Sharma
+   Date Created:    November 02, 2024
+   Description: The LogEntry class represents an individual entry in the Learning Log application. It encapsulates the details of a user's daily learning activity, 
+                including audio recordings, mood ratings, and notes.
+*/
+
+using System;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LearningLog
 {
     public class LogEntry
     {
+        // Attributes of the LogEntry class
         private int Id;
         private DateOnly EntryDate;
         private int Wellness;
@@ -16,52 +20,48 @@ namespace LearningLog
         private string Notes = string.Empty;
         public FileInfo RecordingFile;
 
+        // Static fields for tracking entries
         private static int Count = 0;
         private static DateOnly FirstEntry;
         private static DateOnly NewestEntry;
 
-        private int UserId
+        // Properties for instance fields
+        public int UserId
         {
-            get
+            get 
             {
-                return Id;
-            }
-            set
-            {
-                Id = value;
+                return Id; 
             }
         }
 
-        private DateOnly UserEntryDate
+        public DateOnly UserEntryDate
         {
             get
             {
-                return EntryDate;
-            }
-            set
-            {
-                EntryDate = value;
+                return EntryDate; 
             }
         }
+
+
         public int UserWellness
         {
-            get
-            {
-                return Wellness;
+            get 
+            { 
+                return Wellness; 
             }
-            set
-            {
-                Wellness = value;
+            set 
+            { 
+                Wellness = value; 
             }
         }
 
         public int UserQuality
         {
-            get
+            get 
             {
-                return Quality;
+                return Quality; 
             }
-            set
+            set 
             {
                 Quality = value;
             }
@@ -69,9 +69,9 @@ namespace LearningLog
 
         public string UserNotes
         {
-            get
+            get 
             {
-                return Notes;
+                return Notes; 
             }
             set
             {
@@ -79,27 +79,24 @@ namespace LearningLog
             }
         }
 
-        private FileInfo UserFile
+        public FileInfo UserFile
         {
             get
             {
                 return RecordingFile;
             }
             set
-            {
+            { 
                 RecordingFile = value;
             }
         }
 
+        // Static read-only properties for summary data
         public static int UserEntries
         {
-            get
+            get 
             {
-                return Count;
-            }
-            set
-            {
-                Count = value;
+                return Count; 
             }
         }
 
@@ -107,11 +104,7 @@ namespace LearningLog
         {
             get
             {
-                return FirstEntry;
-            }
-            set
-            {
-                FirstEntry = value;
+                return FirstEntry; 
             }
         }
 
@@ -121,29 +114,38 @@ namespace LearningLog
             {
                 return NewestEntry;
             }
-            set
-            {
-                NewestEntry = value;
-            }
         }
 
-        public LogEntry() 
-        { 
+
+        // Default constructor
+        public LogEntry()
+        {
             Id = ++Count;
             EntryDate = DateOnly.FromDateTime(DateTime.Now);
-            if (Count == 1)
-                FirstEntry = EntryDate;
-            else
-                NewestEntry = EntryDate;
-            
+            UpdateEntryDates();
         }
 
-        public LogEntry(int Wellness, int Quality, string Notes, FileInfo RecordingFile)
+        // Parameterized constructor
+        public LogEntry(int wellness, int quality, string notes, FileInfo recordingFile)
         {
-            this.Wellness = Wellness;
-            this.Quality = Quality;
-            this.Notes = Notes;
-            this.RecordingFile = RecordingFile;
+            Id = ++Count;
+            EntryDate = DateOnly.FromDateTime(DateTime.Now);
+            Wellness = wellness;
+            Quality = quality;
+            Notes = notes;
+            RecordingFile = recordingFile;
+            UpdateEntryDates();
+        }
+
+        // Method to update static entry dates
+        private void UpdateEntryDates()
+        {
+            if (Count == 1)
+            {
+                // Assign to the static field directly
+                FirstEntry = EntryDate;
+            }
+            NewestEntry = EntryDate; // Also assign to the field directly
         }
     }
 }

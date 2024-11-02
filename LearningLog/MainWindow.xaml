@@ -31,7 +31,7 @@
                     </Grid.RowDefinitions>
 
                     <!-- Record button -->
-                    <Button x:Name="buttonRecord" Grid.Column="0" Grid.Row="0" Width="120" Margin="5" Click="buttonRecord_Click" ToolTip="Click to start the audio recording">
+                    <Button x:Name="buttonRecord" Grid.Column="0" Grid.Row="0" Width="120" Margin="5" Click="buttonRecord_Click" ToolTip="Click to start the audio recording" TabIndex="0">
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition />
@@ -44,7 +44,7 @@
                         </Grid>
                     </Button>
                     <!-- Playback button -->
-                    <Button x:Name="buttonPlay" Grid.Column="1" Grid.Row="0" Width="120" Margin="5" IsEnabled="False" Click="buttonPlay_Click" ToolTip="Click to playback the audio recording">
+                    <Button x:Name="buttonPlay" Grid.Column="1" Grid.Row="0" Width="120" Margin="5" IsEnabled="False" Click="buttonPlay_Click" ToolTip="Click to playback the audio recording" TabIndex="1">
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition />
@@ -57,7 +57,7 @@
                         </Grid>
                     </Button>
                     <!-- Delete button -->
-                    <Button x:Name="buttonDelete"  Grid.Column="2" Grid.Row="0" Width="120" Margin="5" IsEnabled="False" Click="buttonDelete_Click" ToolTip="Click to delete the audio recording">
+                    <Button x:Name="buttonDelete"  Grid.Column="2" Grid.Row="0" Width="120" Margin="5" IsEnabled="False" Click="buttonDelete_Click" ToolTip="Click to delete the audio recording" TabIndex="2">
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition />
@@ -72,7 +72,8 @@
 
                     <!-- Row 1..? -->
                     <Label Content="_Wellness/Mood:" Grid.Column="0" Grid.Row="1" Margin="5" HorizontalAlignment="Right" VerticalAlignment="Center" Target="{Binding ElementName=comboWellness}"/>
-                    <ComboBox x:Name="comboWellness" Grid.Column="1" Grid.Row="1" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Center" MinWidth="80" ToolTip="Select from 1-5 how you are feeling making this entry">
+                    <ComboBox x:Name="comboWellness" Grid.Column="1" Grid.Row="1" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Center" MinWidth="80" ToolTip="Select from 1-5 how you are feeling making this entry" TabIndex="3">
+                        <ComboBoxItem Content="0"/>
                         <ComboBoxItem Content="1"/>
                         <ComboBoxItem Content="2"/>
                         <ComboBoxItem Content="3"/>
@@ -81,7 +82,8 @@
                     </ComboBox>
 
                     <Label Content="Today’s _Quality:" Grid.Column="1" Grid.Row="1" Margin="5" HorizontalAlignment="Right" VerticalAlignment="Center" Target="{Binding ElementName=comboQuality}"/>
-                    <ComboBox x:Name="comboQuality" Grid.Column="2" Grid.Row="1" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Center" MinWidth="80" ToolTip="Select from 1-5 how you are feeling about quality of today's entry">
+                    <ComboBox x:Name="comboQuality" Grid.Column="2" Grid.Row="1" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Center" MinWidth="80" ToolTip="Select from 1-5 how you are feeling about quality of today's entry" TabIndex="4">
+                        <ComboBoxItem Content="0"/>
                         <ComboBoxItem Content="1"/>
                         <ComboBoxItem Content="2"/>
                         <ComboBoxItem Content="3"/>
@@ -93,10 +95,10 @@
                     <Label Content="_Notes:" Grid.Column="0" Grid.Row="2" Target="{Binding ElementName=textNotes}" VerticalAlignment="Bottom"/>
 
                     <!-- Row 3. Just the big textbox. -->
-                    <TextBox x:Name="textNotes" Grid.ColumnSpan="3" Grid.Row="3" Margin="5" TextChanged="textNotes_TextChanged" ToolTip="Enter any notes about today's entry"/>
+                    <TextBox x:Name="textNotes" Grid.ColumnSpan="3" Grid.Row="3" Margin="5" TextChanged="textNotes_TextChanged" ToolTip="Enter any notes about today's entry" TabIndex="5"/>
 
                     <!-- Row 4. Just the save button. -->
-                    <Button x:Name="buttonSave" Grid.Column="1" Grid.Row="4" Width="120" Margin="5" IsEnabled="False" ToolTip="Click to finalize and save this entry">
+                    <Button x:Name="buttonSave" Grid.Column="1" Grid.Row="4" Width="120" Margin="5" IsEnabled="False" ToolTip="Click to finalize and save this entry" Click="buttonSave_Click" TabIndex="6">
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition />
@@ -113,9 +115,29 @@
                 </Grid>
             </TabItem>
             <!-- The summary tab. -->
-            <TabItem x:Name="tabSummary" Header="_Summary" ToolTip="View the summary" >
+            <TabItem x:Name="tabSummary" Header="_Summary" ToolTip="View the summary" GotFocus="tabSummary_GotFocus" TabIndex="6" >
                 <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
 
+                    <!-- Number of Entries -->
+                    <Label Content="Number of Entries:" FontSize="13" Target="{Binding ElementName=textTotalEntries}" HorizontalAlignment="Right" Margin="5" VerticalAlignment="Center" Grid.Row="0" Grid.Column="0"/>
+                    <TextBox x:Name="textTotalEntries" FontSize="13" HorizontalAlignment="Left" Margin="5" VerticalAlignment="Center" Width="80" IsReadOnly="True" Grid.Row="0" Grid.Column="1" TabIndex="7"/>
+
+                    <!-- First Entry -->
+                    <Label Content="First Entry:" FontSize="13" Target="{Binding ElementName=textFirstEntry}" HorizontalAlignment="Right" Margin="5" VerticalAlignment="Center" Grid.Row="1" Grid.Column="0"/>
+                    <TextBox x:Name="textFirstEntry" FontSize="13" HorizontalAlignment="Left" Margin="5" VerticalAlignment="Center" Width="80" IsReadOnly="True" Grid.Row="1" Grid.Column="1" TabIndex="8"/>
+
+                    <!-- Newest Entry -->
+                    <Label Content="Newest Entry:" FontSize="13" Target="{Binding ElementName=textNewestEntry}" HorizontalAlignment="Right" Margin="5" VerticalAlignment="Center" Grid.Row="2" Grid.Column="0"/>
+                    <TextBox x:Name="textNewestEntry" FontSize="13" HorizontalAlignment="Left" Margin="5" VerticalAlignment="Center" Width="80" IsReadOnly="True" Grid.Row="2" Grid.Column="1" TabIndex="9"/>
                 </Grid>
 
             </TabItem>
